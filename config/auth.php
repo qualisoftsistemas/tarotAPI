@@ -13,6 +13,12 @@ return [
     |
     */
 
+    'credentials' => [
+        'user'     => env('USER', 'Marcelo'),
+        'password' => env('PASSWORD', 'Mb0611'),
+        'token'    => env('TOKEN', 'meu-token-estatico-1234567890'),
+    ],
+
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
