@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartaController;
+use App\Http\Controllers\MensagemController;
 use App\Http\Middleware\Autenticar;
 use App\Http\Middleware\ForceJsonResponse;
 use Illuminate\Http\Request;
@@ -37,8 +38,11 @@ Route::middleware([ForceJsonResponse::class])->group(function () {
 
     Route::middleware([Autenticar::class])->group(function () {
         Route::apiResource('/cartas', CartaController::class)->except(['edit', 'create']);
+        Route::get('/mensagens', [MensagemController::class, 'index']);
     });
 
     Route::get('/sortear', [CartaController::class, 'sortear_cartas']);
     Route::get('/analisar/{carta1}/{carta2}/{carta3}', [CartaController::class, 'analisar_cartas']);
+
+    Route::post('/mensagens', [MensagemController::class, 'store']);
 });
