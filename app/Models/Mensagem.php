@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Mensagem extends Model
 {
     protected $table    = 'mensagens';
-    public $timestamps  = false;
 
     protected $fillable = [
         'nome',
@@ -15,5 +14,9 @@ class Mensagem extends Model
         'idade',
         'sexo',
         'mensagem'
+    ];
+
+    protected $hidden = [
+        'updated_at'
     ];
 }
