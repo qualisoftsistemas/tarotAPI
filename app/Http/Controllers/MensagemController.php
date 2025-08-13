@@ -38,7 +38,7 @@ class MensagemController extends Controller
             ], 400);
         }
 
-        if (!$data_inicial->greaterThan($data_final)) {
+        if ($data_inicial->greaterThan($data_final)) {
             return response()->json([
                 'status' => [
                     'code'      => 400,
