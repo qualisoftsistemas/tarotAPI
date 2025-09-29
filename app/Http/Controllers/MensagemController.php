@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mensagem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MensagemController extends Controller
 {
@@ -103,13 +104,31 @@ class MensagemController extends Controller
             'mensagem'  => $mensagem
         ]);
 
+        try {
+            Mail::send('emails.contato', [
+                'nome'     => $nome,
+                'email'    => $email,
+                'idade'    => $idade ?? null,
+                'sexo'     => $sexo ?? null,
+                'mensagem' => $mensagem ?? null
+            ], function ($message) use ($email, $nome) {
+                $message->to('tarotdebolso@gmail.com')
+                    ->subject('Contato Tarot de Bolso - ' . $nome . ' (' . $email . ')');
+            });
+
+            $emailStatus = true;
+        } catch (\Exception $e) {
+            $emailStatus = false;
+        }
+
         return response()->json([
             'status' => [
                 'code'      => 200,
                 'timestamp' => $this->TimestampBr(),
                 'message'   => 'Mensagem salva com sucesso'
             ],
-            'mensagem' => $mensagem
+            'mensagem'      => $mensagem,
+            'email_enviado' => $emailStatus
         ], 200);
     }
 }
