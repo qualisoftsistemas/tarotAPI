@@ -110,7 +110,7 @@ class MensagemController extends Controller
                 'email'    => $email,
                 'idade'    => $idade ?? null,
                 'sexo'     => $sexo ?? null,
-                'mensagem' => $mensagem ?? null
+                'mensagem' => $mensagem->mensagem ?? null
             ], function ($message) use ($email, $nome) {
                 $message->to('tarotdebolso@gmail.com')
                     ->subject('Contato Tarot de Bolso - ' . $nome . ' (' . $email . ')');
